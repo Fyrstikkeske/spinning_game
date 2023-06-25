@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cpnmj6drwy3x2"
+path="res://.godot/imported/TF2 Payload Explosion.mp3-bcb4ff892ed0eec1d4d860ae5c2b60ef.mp3str"
+
+[deps]
+
+source_file="res://audio/TF2 Payload Explosion.mp3"
+dest_files=["res://.godot/imported/TF2 Payload Explosion.mp3-bcb4ff892ed0eec1d4d860ae5c2b60ef.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -24,11 +24,14 @@ public partial class Brick : Sprite2D
 					cursor.reverse = !cursor.reverse;
 					cursor.Speed = 5;
 					NewPos();
+					GetNode<AudioStreamPlayer2D>("Hit").Playing = false;
+					GetNode<AudioStreamPlayer2D>("Hit").Playing = true;
 					GetParent().GetParent().GetNode<AnimationPlayer>("AnimationPlayer").Stop();
 					GetParent().GetParent().GetNode<AnimationPlayer>("AnimationPlayer").Play("shake");
 					break;
 				case false:
 					GetNode<Globals>("/root/Globals").Points -= 2;
+					GetNode<AudioStreamPlayer2D>("SoldierDammit").Playing = true;
 					break;
 			}
 			

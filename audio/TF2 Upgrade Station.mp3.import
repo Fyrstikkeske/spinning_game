@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://df4oi35644q66"
+path="res://.godot/imported/TF2 Upgrade Station.mp3-090bba5d8b6ecce75924561263f1800a.mp3str"
+
+[deps]
+
+source_file="res://audio/TF2 Upgrade Station.mp3"
+dest_files=["res://.godot/imported/TF2 Upgrade Station.mp3-090bba5d8b6ecce75924561263f1800a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
