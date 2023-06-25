@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://bscp2e37cp0uw"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_2gxhr"]
+[ext_resource type="Texture2D" uid="uid://cofir1hm230dx" path="res://images/plsgivemekeystudio.png" id="2_npg18"]
+
+[sub_resource type="Animation" id="Animation_ramer"]
+resource_name = "menu"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 2.3, 3.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(348, 128), Vector2(340, -277), Vector2(-423, -288), Vector2(-453, 248), Vector2(348, 128)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_4mhb5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(348, 128)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ctpf"]
+_data = {
+"RESET": SubResource("Animation_4mhb5"),
+"menu": SubResource("Animation_ramer")
+}
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_2gxhr")
+
+[node name="StartGame" type="Button" parent="."]
+offset_left = -99.0
+offset_top = -17.0
+offset_right = 107.0
+offset_bottom = 14.0
+text = "Press Here To Start Game"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(348, 128)
+texture = ExtResource("2_npg18")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_3ctpf")
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -80.0
+offset_top = -205.0
+offset_right = 83.0
+offset_bottom = -165.0
+bbcode_enabled = true
+text = "[center] Press esc to quit"
+
+[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

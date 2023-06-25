@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=3 uid="uid://bu0owjqmtxybl"]
+
+[ext_resource type="Script" path="res://scripts/Center.cs" id="1_7yowq"]
+[ext_resource type="Texture2D" uid="uid://iv1qwsoku6nv" path="res://images/cursor.png" id="1_miuyy"]
+[ext_resource type="Script" path="res://scripts/Cursor.cs" id="2_ja4da"]
+[ext_resource type="Texture2D" uid="uid://dlm7j63bofy4q" path="res://images/brick.png" id="3_ht826"]
+[ext_resource type="Script" path="res://scripts/Brick.cs" id="4_se3jj"]
+[ext_resource type="Script" path="res://scripts/ShowPoints.cs" id="6_6wlad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edk4i"]
+size = Vector2(32, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mwet"]
+size = Vector2(32, 12)
+
+[sub_resource type="Animation" id="Animation_11ww1"]
+resource_name = "shake"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 1, 1, 1, 1, 1),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 4, 0, 0, 0, 0, -4, 0, 0, 0, 0, 4, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(1, 1, 1, 1, 1, 1),
+"points": PackedFloat32Array(4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, -4, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_b8y37"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fj33g"]
+_data = {
+"RESET": SubResource("Animation_b8y37"),
+"shake": SubResource("Animation_11ww1")
+}
+
+[node name="Game" type="Node2D"]
+position = Vector2(4, 4)
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("1_7yowq")
+
+[node name="Cursor" type="Sprite2D" parent="Center"]
+z_index = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_miuyy")
+script = ExtResource("2_ja4da")
+
+[node name="CursorCollision" type="Area2D" parent="Center/Cursor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Center/Cursor/CursorCollision"]
+shape = SubResource("RectangleShape2D_edk4i")
+
+[node name="Brick" type="Sprite2D" parent="Center"]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("3_ht826")
+script = ExtResource("4_se3jj")
+
+[node name="BrickCollision" type="Area2D" parent="Center/Brick"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Center/Brick/BrickCollision"]
+shape = SubResource("RectangleShape2D_4mwet")
+
+[node name="ShowPoints" type="RichTextLabel" parent="."]
+offset_left = 558.0
+offset_top = 303.0
+offset_right = 598.0
+offset_bottom = 343.0
+bbcode_enabled = true
+script = ExtResource("6_6wlad")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fj33g")
+}
+
+[connection signal="area_exited" from="Center/Brick/BrickCollision" to="Center/Brick" method="_on_brick_collision_area_exited"]
